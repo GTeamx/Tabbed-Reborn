@@ -155,8 +155,9 @@ public class Skins {
      */
     public static Skin getPlayer(Player player) {
         TextureProperty property = DEFAULT_SKIN.getProperty();
+        if (PacketEvents.getAPI().getPlayerManager().getUser(player) == null) return DEFAULT_SKIN;
         Collection<TextureProperty> properties = PacketEvents.getAPI().getPlayerManager().getUser(player).getProfile().getTextureProperties();
-        if (properties != null && properties.size() > 0)
+        if (properties != null && !properties.isEmpty())
             property = properties.iterator().next();
         return new Skin(property);
     }
