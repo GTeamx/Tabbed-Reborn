@@ -1,17 +1,13 @@
-# Tabbed
+# Tabbed-Reborn
 
-[![Build Status](https://travis-ci.org/thekeenant/tabbed.svg?branch=master)](https://travis-ci.org/thekeenant/tabbed)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d18390d22764a86bb77dc65208319d5)](https://www.codacy.com/app/thekeenant/tabbed?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thekeenant/tabbed&amp;utm_campaign=Badge_Grade)
-[![SpigotMC](https://img.shields.io/badge/SpigotMC-250%20downloads-yellow.svg)](https://www.spigotmc.org/resources/tabbed.18871/)
-
-Tabbed is a Bukkit API for configuring the tablist for your users. Each slot is configurable: set the icon, ping, and text
+Tabbed-Reborn is a Bukkit API for configuring the tablist for your users. Each slot is configurable: set the icon, ping, and text
 for each tab list item to your liking.
 
-**This library is not actively maintained, but if you are interested in contributing, go right ahead!**
+**This library is a direct fork of the original "tabbed" API from thekeenant ! Feel free to check it out!**
 
 **Dependencies:**
-* Any derivative of Bukkit 1.8 or 1.9
-* [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
+* Any derivative of Bukkit 1.7 - 1.21.8
+* [PacketEvents](https://modrinth.com/plugin/packetevents)
 
 **Demonstration:**
 
@@ -228,3 +224,7 @@ tabbed.batchUpdate(); // sends the packets!
 tabbed.setBatchUpdate(false); // optional
 ```
 No blinking any more (except skins, that's just Minecraft downloading/reading the skin when it isn't cached).
+
+## License
+
+This project is under the MIT License.
