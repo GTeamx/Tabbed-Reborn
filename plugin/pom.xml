@@ -4,17 +4,17 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>parent</artifactId>
-    <groupId>com.keenant.tabbed</groupId>
+    <groupId>cloud.gteam.tabbedReborn</groupId>
     <version>2.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>tabbed-plugin</artifactId>
+  <artifactId>TabbedReborn-plugin</artifactId>
 
   <dependencies>
     <dependency>
-      <groupId>com.keenant.tabbed</groupId>
-      <artifactId>tabbed-core</artifactId>
+      <groupId>cloud.gteam.tabbedReborn</groupId>
+      <artifactId>TabbedReborn-core</artifactId>
       <version>2.0</version>
     </dependency>
   </dependencies>
@@ -36,7 +36,7 @@
         <configuration>
           <artifactSet>
             <includes>
-              <include>com.keenant.tabbed:tabbed-core</include>
+              <include>cloud.gteam.tabbedReborn:TabbedReborn-core</include>
             </includes>
           </artifactSet>
         </configuration>

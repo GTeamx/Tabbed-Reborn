@@ -1,4 +1,4 @@
-package com.keenant.tabbed.util;
+package cloud.gteam.tabbedReborn.util;
 
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.TextureProperty;
@@ -8,7 +8,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.io.CharStreams;
-import com.keenant.tabbed.Tabbed;
+import cloud.gteam.tabbedReborn.Tabbed;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
@@ -19,6 +19,8 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import java.util.logging.Level;
  * Some Skin utils.
  */
 public class Skins {
+
     public static final List<Skin> DOT_SKINS;
     public static final ArrayListMultimap<EntityType,Skin> MOB_SKINS;
     public static final Skin DEFAULT_SKIN;
@@ -107,9 +110,9 @@ public class Skins {
         MOB_SKINS.put(EntityType.GUARDIAN, new Skin("eyJ0aW1lc3RhbXAiOjE0NTU5OTI2NDE4ODIsInByb2ZpbGVJZCI6IjczMmFiMGIwNTQ4YTQ5MGI4NjgxYWExY2E5MmIxMWExIiwicHJvZmlsZU5hbWUiOiJNSEZfRUd1YXJkaWFuIiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xYzc5NzQ4MmExNGJmY2I4NzcyNTdjYjJjZmYxYjZlNmE4Yjg0MTMzMzZmZmI0YzI5YTYxMzkyNzhiNDM2YiJ9fX0=", "GFsAu3Lv7nPlwnWGmt3whR7sQc2rMCUjGlNlafBkVeLBLK3bZei2wK7KkJlWMmpQTpOiiyaoQB6hLXPYF7vfYnX20pSfq0IHM0nGWXVAZePsYS+N9dj3nsA2WFaDlkXQfi16zIZgTG/LDMmRKhTqsDXiUM7me7kqJ1uy9cMOB2+IUKsLJwZ01WTo5OFDCTLVdE+B8y9s/KZPsCXb39K/SdkbQEh1Aa5Bru6QoV8latLIHyY9bMZzH9an2zVyzAn0J3TaIixirWAdnmgHf8UmE3L2zysq7q4anYw7X9kCn/wvjgwz5wLrCE71GMEm3FXSrjCpJz38npMKc3tVHi6Go+WUzJ8Y9r80U7ffGgSAPyyM96pQl4TNH/th/wJ9lBdGi0ZT6yK5dlfaVSFPGIKSswqzYrNl5YcoLwiJ/YIPuZvKQi5fOuVbegm7bHeHYRt4iE6o5E2ZGr29JPAasm3nF4VDLCzLKW3qEoMZ+6xn+zglew1CcQPoGc5N9km5Orx+uNOmK/s0so5ofL5ZUrRn579e539RyMNfFg75UExIC4kn+qJe7BeCZc2uNYn9OFnfs4IL7mYBnNpwIyNSYOD+R4TYRRHfnykRXEt6cGPGhxRmCXgOiMq/sDxxPeEM0SOrjAckx5Bm5RLBcbAh0LZcU2+1gMLcEOi7mfVUYDGWlws="));
         MOB_SKINS.put(EntityType.SNOWMAN, new Skin("eyJ0aW1lc3RhbXAiOjE0NTU5OTQ1MzA2OTMsInByb2ZpbGVJZCI6IjUzZjE3NTM0NTBhOTQ1NjE4YWZhMjk4ODNiODRhMWNjIiwicHJvZmlsZU5hbWUiOiJTbm93bWFuXzciLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzhlOGQyMDZmNjFlNmRlOGE3OWQwY2IwYmNkOThhY2VkNDY0Y2JmZWZjOTIxYjQxNjBhMjUyODIxNjMxMTJhIn19fQ==", "Y1ujadK6OTRrm6WleyL0Dujj2qoBFZKAshem2gKRbwBjUQOWZ6jhlKzl9z7t1L/nKCAdjyFFxHdLOIlqh41l+v/8HxnQsyIl4mEzYQsN77s2uBE4pUGq+UH6hhTMKNIvqDkOruvDuRBe31k9Q731MP7zq/MUBeYT9OTQqf6eRvh+liwC6uxPW1UWDK5TQzjAYXZl/wdFUcbGL4x5/u5S6WcA5syV8SiJ9NAdrn9YBX6B4rHpByrOcMz9jeTKs5kGdc30NiLTkiYSOo97oxqCKCqdSdN/KPUqx6kcgYeWW2mxzFVjnPGMdTqEGM9N0doHuPn+W2YFwp8yywx5h3ZqWgQwKAMmpHwJKAvYvI+B8vu6E/cbzCn6H+LsqHbtBFnyQXxtH11ePxUdHCLcGwvWiI/3rURnD5F8Dz3ZYpJNCKaa4dg6UQm0Rs5nwvOrwJ5VxusZv9kIHEYEAM4NuwE/NHtpBhBQc7t665x5XLOfIdaU77OwwXlVNfvCRq3QqRkA4AzyqfIxnFpQ/SQR96vfa9OMHm05ktnxOq8pMAAY2FKF/Saqn2FM94FxjZ4NXHFW+rfkk4fMyjund/NUfuGoEOThVCVGIfpjUWbQtp4h+vxk5Qo38DqiYVqWRhT6eWHcKOxxZngY4JbzF07f/jh3tSgq1tI0WKz79J+slHS5Yx4="));
 
-        profileCache = CacheBuilder.newBuilder().maximumSize(500).expireAfterWrite(4, TimeUnit.HOURS).build(new CacheLoader<String, String>() {
+        profileCache = CacheBuilder.newBuilder().maximumSize(500).expireAfterWrite(4, TimeUnit.HOURS).build(new CacheLoader<>() {
             @Override
-            public String load(String uuid) throws IOException {
+            public String load(String uuid) throws IOException, URISyntaxException {
                 return getProfileText(uuid);
             }
         });
@@ -120,7 +123,7 @@ public class Skins {
      * @param type
      * @return
      */
-    public static Skin getMob(EntityType type) {
+    public static Skin getMob(final EntityType type) {
         return getMob(type, 0);
     }
 
@@ -130,13 +133,14 @@ public class Skins {
      * @param alternateForm Used if multiple versions of this mob exist (wither skeleton = 1, ender guardian = 1)
      * @return
      */
-    public static Skin getMob(EntityType type, int alternateForm) {
-        List<Skin> skins = MOB_SKINS.get(type);
-        if (skins == null || skins.size() == 0)
-            return DEFAULT_SKIN;
-        if (alternateForm >= skins.size())
-            return DEFAULT_SKIN;
+    public static Skin getMob(final EntityType type, final  int alternateForm) {
+
+        final List<Skin> skins = MOB_SKINS.get(type);
+        if (skins == null || skins.isEmpty()) return DEFAULT_SKIN;
+        if (alternateForm >= skins.size()) return DEFAULT_SKIN;
+
         return skins.get(alternateForm);
+
     }
 
     /**
@@ -144,7 +148,7 @@ public class Skins {
      * @param color
      * @return
      */
-    public static Skin getDot(ChatColor color) {
+    public static Skin getDot(final ChatColor color) {
         return DOT_SKINS.get(color.ordinal());
     }
 
@@ -153,25 +157,24 @@ public class Skins {
      * @param player
      * @return
      */
-    public static Skin getPlayer(Player player) {
+    public static Skin getPlayer(final Player player) {
+
         TextureProperty property = DEFAULT_SKIN.getProperty();
-        if (PacketEvents.getAPI().getPlayerManager().getUser(player) == null) return DEFAULT_SKIN;
-        Collection<TextureProperty> properties = PacketEvents.getAPI().getPlayerManager().getUser(player).getProfile().getTextureProperties();
-        if (properties != null && !properties.isEmpty())
-            property = properties.iterator().next();
+
+        final Collection<TextureProperty> properties = PacketEvents.getAPI().getPlayerManager().getUser(player).getProfile().getTextureProperties();
+        if (!properties.isEmpty()) property = properties.iterator().next();
+
         return new Skin(property);
+
     }
 
     /**
      * Get a Minecraft user's skin.
-     * @param username
+     * @param username java.lang.String
      * @return
      */
-    public static Skin getPlayer(String username) {
-        if (!Bukkit.getOnlineMode()) {
-            Tabbed.log(Level.SEVERE, "online-mode must be true to fetch skins");
-            return DEFAULT_SKIN;
-        }
+    public static Skin getPlayer(final String username) {
+        if (!Bukkit.getOnlineMode()) return DEFAULT_SKIN;
         return getPlayer(Bukkit.getOfflinePlayer(username).getUniqueId());
     }
 
@@ -180,21 +183,23 @@ public class Skins {
      * @param uuid
      * @return
      */
-    public static Skin getPlayer(UUID uuid) {
+    public static Skin getPlayer(final UUID uuid) {
+
         try {
             return downloadSkin(uuid.toString().replace("-", ""));
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return DEFAULT_SKIN;
         }
+
     }
 
     private static Skin downloadSkin(String uuid) {
-        uuid = addUuidDashes(uuid);
 
+        uuid = addUuidDashes(uuid);
         TextureProperty property = null;
 
-        JSONObject json;
+        final JSONObject json;
         try {
             json = (JSONObject) new JSONParser().parse(profileCache.get(uuid));
         } catch (Exception e) {
@@ -202,33 +207,38 @@ public class Skins {
             e.printStackTrace();
             return DEFAULT_SKIN;
         }
-        JSONArray properties = (JSONArray) json.get("properties");
+        final JSONArray properties = (JSONArray) json.get("properties");
 
-        for (Object object : properties) {
-            JSONObject jsonObject = (JSONObject) object;
-            String name = (String) jsonObject.get("name");
-            String value = (String) jsonObject.get("value");
-            String signature = (String) jsonObject.get("signature");
-            if (name.equals(Skin.TEXTURE_KEY))
-                property = new TextureProperty(name, value, signature);
+        for (final Object object : properties) {
+
+            final JSONObject jsonObject = (JSONObject) object;
+            final String name = (String) jsonObject.get("name");
+            final String value = (String) jsonObject.get("value");
+            final String signature = (String) jsonObject.get("signature");
+
+            if (name.equals(Skin.TEXTURE_KEY)) property = new TextureProperty(name, value, signature);
+
         }
 
-        if (property == null)
-            return DEFAULT_SKIN;
+        if (property == null) return DEFAULT_SKIN;
 
         return new Skin(property);
+
     }
 
-    private static String addUuidDashes(String uuid) {
+    private static String addUuidDashes(final String uuid) {
         return uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
     }
 
-    private static String getProfileText(String uuid) throws IOException {
+    private static String getProfileText(String uuid) throws IOException, URISyntaxException {
+
         uuid = uuid.replace("-", "");
 
-        URL url = new URL(profileUrl + uuid + "?unsigned=false");
-        URLConnection connection = url.openConnection();
+            final URL url = new URI(profileUrl + uuid + "?unsigned=false").toURL();
+        final URLConnection connection = url.openConnection();
+
         return CharStreams.toString(new InputStreamReader(connection.getInputStream(), Charsets.UTF_8));
+
     }
 
 }

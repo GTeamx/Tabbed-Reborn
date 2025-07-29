@@ -1,4 +1,4 @@
-package com.keenant.tabbed.tablist;
+package cloud.gteam.tabbedReborn.tablist;
 
 import org.bukkit.entity.Player;
 
@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
  * The highest level of a tab list.
  */
 public interface TabList {
+
     Player getPlayer();
 
     /**
@@ -19,4 +20,5 @@ public interface TabList {
      * @return The tab list.
      */
     TabList disable();
+
 }

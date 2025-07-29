@@ -1,11 +1,12 @@
-package com.keenant.tabbed.item;
+package cloud.gteam.tabbedReborn.item;
 
-import com.keenant.tabbed.util.Skin;
+import cloud.gteam.tabbedReborn.util.Skin;
 
 /**
  * Represents a custom tab item.
  */
 public interface TabItem {
+
     /**
      * The text of the tab item (any length, recommended less than ~18). No calculations should be made.
      * @return
@@ -47,5 +48,6 @@ public interface TabItem {
      * @param object
      * @return
      */
-    boolean equals(Object object);
+    boolean equals(final Object object);
+
 }

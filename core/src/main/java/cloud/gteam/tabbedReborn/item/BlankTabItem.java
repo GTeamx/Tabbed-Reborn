@@ -1,17 +1,19 @@
-package com.keenant.tabbed.item;
+package cloud.gteam.tabbedReborn.item;
 
-import com.keenant.tabbed.util.Skin;
-import com.keenant.tabbed.util.Skins;
+import cloud.gteam.tabbedReborn.util.Skin;
+import cloud.gteam.tabbedReborn.util.Skins;
 
 /**
  * A blank TextTabItem
  */
 public class BlankTabItem extends TextTabItem {
-    public BlankTabItem(Skin skin) {
+
+    public BlankTabItem(final Skin skin) {
         super("", 1000, skin);
     }
 
     public BlankTabItem() {
         this(Skins.DEFAULT_SKIN);
     }
+
 }

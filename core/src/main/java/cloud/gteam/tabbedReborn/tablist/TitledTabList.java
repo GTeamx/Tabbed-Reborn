@@ -1,4 +1,4 @@
-package com.keenant.tabbed.tablist;
+package cloud.gteam.tabbedReborn.tablist;
 
 
 import com.github.retrooper.packetevents.PacketEvents;
@@ -11,11 +11,12 @@ import org.bukkit.entity.Player;
  * A very basic tab list. It doesn't modify the items, only the header/footer.
  */
 public class TitledTabList implements TabList {
+
     protected final Player player;
     private String header;
     private String footer;
 
-    public TitledTabList(Player player) {
+    public TitledTabList(final Player player) {
         this.player = player;
     }
 
@@ -30,7 +31,7 @@ public class TitledTabList implements TabList {
         return this;
     }
 
-    public void setHeaderFooter(String header, String footer) {
+    public void setHeaderFooter(final String header, final String footer) {
         setHeader(header);
         setFooter(footer);
     }
@@ -40,7 +41,7 @@ public class TitledTabList implements TabList {
         resetFooter();
     }
 
-    public void setHeader(String header) {
+    public void setHeader(final String header) {
         this.header = header;
         updateHeaderFooter();
     }
@@ -49,7 +50,7 @@ public class TitledTabList implements TabList {
         setHeader(null);
     }
 
-    public void setFooter(String footer) {
+    public void setFooter(final String footer) {
         this.footer = footer;
         updateHeaderFooter();
     }
@@ -73,4 +74,5 @@ public class TitledTabList implements TabList {
     public String getHeader() {
         return header;
     }
+
 }
