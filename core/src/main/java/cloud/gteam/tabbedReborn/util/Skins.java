@@ -2,6 +2,7 @@ package cloud.gteam.tabbedReborn.util;
 
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.TextureProperty;
+import com.github.retrooper.packetevents.protocol.player.User;
 import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -161,7 +162,11 @@ public class Skins {
 
         TextureProperty property = DEFAULT_SKIN.getProperty();
 
-        final Collection<TextureProperty> properties = PacketEvents.getAPI().getPlayerManager().getUser(player).getProfile().getTextureProperties();
+        final User user = PacketEvents.getAPI().getPlayerManager().getUser(player);
+
+        if (user == null) return DEFAULT_SKIN;
+
+        final Collection<TextureProperty> properties = user.getProfile().getTextureProperties();
         if (!properties.isEmpty()) property = properties.iterator().next();
 
         return new Skin(property);
@@ -170,7 +175,7 @@ public class Skins {
 
     /**
      * Get a Minecraft user's skin.
-     * @param username java.lang.String
+     * @param username
      * @return
      */
     public static Skin getPlayer(final String username) {
