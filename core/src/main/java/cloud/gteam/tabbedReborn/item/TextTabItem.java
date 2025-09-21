@@ -1,34 +1,32 @@
-package com.keenant.tabbed.item;
+package cloud.gteam.tabbedReborn.item;
 
-import com.keenant.tabbed.util.Skin;
-import com.keenant.tabbed.util.Skins;
-import lombok.Getter;
-import lombok.ToString;
+import cloud.gteam.tabbedReborn.util.Skin;
+import cloud.gteam.tabbedReborn.util.Skins;
 
 import java.util.Objects;
 
 /**
  * A tab item with custom text, ping and skin.
  */
-@ToString
 public class TextTabItem implements TabItem {
-    @Getter private String text;
-    @Getter private int ping;
-    @Getter private Skin skin;
+
+    private String text;
+    private int ping;
+    private Skin skin;
 
     private String newText;
     private int newPing;
     private Skin newSkin;
 
-    public TextTabItem(String text) {
+    public TextTabItem(final String text) {
         this(text, 1000);
     }
 
-    public TextTabItem(String text, int ping) {
+    public TextTabItem(final String text, final int ping) {
         this(text, ping, Skins.DEFAULT_SKIN);
     }
 
-    public TextTabItem(String text, int ping, Skin skin) {
+    public TextTabItem(final String text, final int ping, final Skin skin) {
         this.newText = text;
         this.newPing = ping;
         this.newSkin = skin;
@@ -37,15 +35,15 @@ public class TextTabItem implements TabItem {
         updateSkin();
     }
 
-    public void setText(String text) {
+    public void setText(final String text) {
         this.newText = text;
     }
 
-    public void setPing(int ping) {
+    public void setPing(final int ping) {
         this.newPing = ping;
     }
 
-    public void setSkin(Skin skin) {
+    public void setSkin(final Skin skin) {
         this.newSkin = skin;
     }
 
@@ -71,10 +69,27 @@ public class TextTabItem implements TabItem {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof TextTabItem))
-            return false;
-        TextTabItem other = (TextTabItem) object;
+    public boolean equals(final Object object) {
+
+        if (!(object instanceof TextTabItem other)) return false;
+
         return this.text.equals(other.getText()) && this.skin.equals(other.getSkin()) && this.ping == other.getPing();
+
     }
+
+    @Override
+    public String getText() {
+        return text;
+    }
+
+    @Override
+    public int getPing() {
+        return ping;
+    }
+
+    @Override
+    public Skin getSkin() {
+        return skin;
+    }
+
 }

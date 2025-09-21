@@ -1,9 +1,7 @@
-package com.keenant.tabbed;
+package cloud.gteam.tabbedReborn;
 
+import cloud.gteam.tabbedReborn.tablist.*;
 import com.google.common.base.Preconditions;
-import com.keenant.tabbed.tablist.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,22 +14,34 @@ import java.util.Map;
 import java.util.logging.Level;
 
 public class Tabbed implements Listener {
-    private static Map<Plugin,Tabbed> instances = new HashMap<>();
-    @Getter @Setter static Level logLevel = Level.WARNING;
 
-    @Getter private final Plugin plugin;
-    private final Map<Player,TabList> tabLists;
+    private static final Map<Plugin,Tabbed> instances = new HashMap<>();
+    static Level logLevel = Level.WARNING;
 
-    public Tabbed(Plugin plugin) {
+    private final Plugin plugin;
+    private final Map<Player, TabList> tabLists;
+
+    public Tabbed(final Plugin plugin) {
         this.plugin = plugin;
         this.tabLists = new HashMap<>();
         this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
         instances.put(plugin, this);
     }
 
-    public static void log(Level level, String message) {
-        if (level.intValue() >= logLevel.intValue())
-            System.out.println("[" + level.getName() + "] " + message);
+    public static Level getLogLevel() {
+        return logLevel;
+    }
+
+    public static void setLogLevel(final Level logLevel) {
+        Tabbed.logLevel = logLevel;
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
+    public static void log(final Level level, final String message) {
+        if (level.intValue() >= logLevel.intValue()) System.out.println("[" + level.getName() + "] " + message);
     }
 
     /**
@@ -39,12 +49,12 @@ public class Tabbed implements Listener {
      * @param plugin
      * @return
      */
-    public static Tabbed getTabbed(Plugin plugin) {
+    public static Tabbed getTabbed(final Plugin plugin) {
         return instances.get(plugin);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerQuit(PlayerQuitEvent event) {
+    public void onPlayerQuit(final PlayerQuitEvent event) {
         destroyTabList(event.getPlayer());
     }
 
@@ -53,7 +63,7 @@ public class Tabbed implements Listener {
      * @param player
      * @return The tab list, or null if it wasn't present.
      */
-    public TabList getTabList(Player player) {
+    public TabList getTabList(final Player player) {
         return this.tabLists.get(player);
     }
 
@@ -62,12 +72,15 @@ public class Tabbed implements Listener {
      * @param player
      * @return The tab list removed (or null if it wasn't present).
      */
-    public TabList destroyTabList(Player player) {
-        TabList tabList = getTabList(player);
-        if (tabList == null)
-            return null;
+    public TabList destroyTabList(final Player player) {
+
+        final TabList tabList = getTabList(player);
+
+        if (tabList == null) return null;
         this.tabLists.remove(player);
+
         return tabList.disable();
+
     }
 
     /**
@@ -75,7 +88,7 @@ public class Tabbed implements Listener {
      * @param tabList
      * @return The tab list removed.
      */
-    public TabList destroyTabList(TabList tabList) {
+    public TabList destroyTabList(final TabList tabList) {
         return destroyTabList(tabList.getPlayer());
     }
 
@@ -84,7 +97,7 @@ public class Tabbed implements Listener {
      * @param player
      * @return
      */
-    public TitledTabList newTitledTabList(Player player) {
+    public TitledTabList newTitledTabList(final Player player) {
         return put(player, new TitledTabList(player).enable());
     }
 
@@ -93,7 +106,7 @@ public class Tabbed implements Listener {
      * @param player
      * @return
      */
-    public DefaultTabList newDefaultTabList(Player player) {
+    public DefaultTabList newDefaultTabList(final Player player) {
         return put(player, new DefaultTabList(this, player, -1).enable());
     }
 
@@ -102,7 +115,7 @@ public class Tabbed implements Listener {
      * @param player
      * @return
      */
-    public SimpleTabList newSimpleTabList(Player player) {
+    public SimpleTabList newSimpleTabList(final Player player) {
         return newSimpleTabList(player, SimpleTabList.MAXIMUM_ITEMS);
     }
 
@@ -112,7 +125,7 @@ public class Tabbed implements Listener {
      * @param maxItems
      * @return
      */
-    public SimpleTabList newSimpleTabList(Player player, int maxItems) {
+    public SimpleTabList newSimpleTabList(final Player player, final int maxItems) {
         return newSimpleTabList(player, maxItems, -1);
     }
 
@@ -123,7 +136,7 @@ public class Tabbed implements Listener {
      * @param minColumnWidth
      * @return
      */
-    public SimpleTabList newSimpleTabList(Player player, int maxItems, int minColumnWidth) {
+    public SimpleTabList newSimpleTabList(final Player player, final int maxItems, final int minColumnWidth) {
         return newSimpleTabList(player, maxItems, minColumnWidth, -1);
     }
 
@@ -135,7 +148,7 @@ public class Tabbed implements Listener {
      * @param maxColumnWidth
      * @return
      */
-    public SimpleTabList newSimpleTabList(Player player, int maxItems, int minColumnWidth, int maxColumnWidth) {
+    public SimpleTabList newSimpleTabList(final Player player, final int maxItems, final int minColumnWidth, final int maxColumnWidth) {
         return put(player, new SimpleTabList(this, player, maxItems, minColumnWidth, maxColumnWidth).enable());
     }
 
@@ -144,7 +157,7 @@ public class Tabbed implements Listener {
      * @param player
      * @return
      */
-    public TableTabList newTableTabList(Player player) {
+    public TableTabList newTableTabList(final Player player) {
         return newTableTabList(player, 4);
     }
 
@@ -154,7 +167,7 @@ public class Tabbed implements Listener {
      * @param columns
      * @return
      */
-    public TableTabList newTableTabList(Player player, int columns) {
+    public TableTabList newTableTabList(final Player player, final int columns) {
         return newTableTabList(player, columns, -1);
     }
 
@@ -165,7 +178,7 @@ public class Tabbed implements Listener {
      * @param minColumnWidth
      * @return
      */
-    public TableTabList newTableTabList(Player player, int columns, int minColumnWidth) {
+    public TableTabList newTableTabList(final Player player, final int columns, final int minColumnWidth) {
         return newTableTabList(player, columns, minColumnWidth, -1);
     }
 
@@ -177,13 +190,14 @@ public class Tabbed implements Listener {
      * @param maxColumnWidth
      * @return
      */
-    public TableTabList newTableTabList(Player player, int columns, int minColumnWidth, int maxColumnWidth) {
+    public TableTabList newTableTabList(final Player player, final int columns, final int minColumnWidth, final int maxColumnWidth) {
         return put(player, new TableTabList(this, player, columns, minColumnWidth, maxColumnWidth).enable());
     }
 
-    private <T extends TabList> T put(Player player, T tabList) {
+    private <T extends TabList> T put(final Player player, final T tabList) {
         Preconditions.checkArgument(!this.tabLists.containsKey(player), "player '" + player.getName() + "' already has a tablist");
         this.tabLists.put(player, tabList);
         return tabList;
     }
+
 }
